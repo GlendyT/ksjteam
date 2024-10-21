@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { wordList } from "../wordList";
-import HangmanDrawing from "./HangmanDrawing";
+//import HangmanDrawing from "./HangmanDrawing";
 import HangmanWord from "./HangmanWord";
 import Keyboard from "./Keyboard";
+import { HangmanDrawing } from "./HangmanDrawing";
 
 function getWord() {
   const randomIndex = Math.floor(Math.random() * wordList.length);
@@ -10,15 +11,20 @@ function getWord() {
 }
 
 export const Fishing = () => {
+  const MAX_TRIES = 6; // Maximum tries allowed
   const [wordData, setWordData] = useState(getWord);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
-  const wordToGuess = wordData.word; // Accede a la palabra
-  const incorrectLetters = guessedLetters.filter(
+  const wordToGuess = wordData.word;
+  const correctLetters = guessedLetters.filter(
+    (letter) => wordToGuess.includes(letter)
+  );
+
+  const incorrectGuesses = guessedLetters.filter(
     (letter) => !wordToGuess.includes(letter)
   );
 
-  const isLoser = incorrectLetters.length >= 6;
+  const isLoser = incorrectGuesses.length >= MAX_TRIES; // Check for loss condition
   const isWinner = wordToGuess
     .split("")
     .every((letter) => guessedLetters.includes(letter));
@@ -56,7 +62,7 @@ export const Fishing = () => {
 
       e.preventDefault();
       setGuessedLetters([]);
-      setWordData(getWord()); // Cambiado para usar setWordData
+      setWordData(getWord());
     };
     document.addEventListener("keypress", handler);
 
@@ -76,26 +82,27 @@ export const Fishing = () => {
         gap: "2rem",
       }}
     >
-      <div style={{ fontSize: "2rem", textAlign: "center" }}>
-        {isWinner && "Winner! - Refresh To try again"}
-        {isLoser && "Nice Try! - Refresh To try again"}
-      </div>
-      <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
+      <HangmanDrawing 
+        numberOfGuesses={incorrectGuesses.length} // Pass incorrect guesses
+        correctGuessCount={correctLetters.length} // Pass correct letters count
+      />
       <HangmanWord
         reveal={isLoser}
         guessedLetters={guessedLetters}
         wordToGuess={wordToGuess}
       />
-      <p>Clue: {wordData.clue}</p> {/* Aquí se muestra la pista */}
+      <p>Clue: {wordData.clue}</p>
       <div style={{ alignSelf: "stretch" }}>
         <Keyboard
           disabled={isWinner || isLoser}
-          activeLetters={guessedLetters.filter((letter) =>
-            wordToGuess.includes(letter)
-          )}
-          inactiveLetters={incorrectLetters}
+          activeLetters={correctLetters}
+          inactiveLetters={guessedLetters.filter(letter => !wordToGuess.includes(letter))}
           addGuessedLetter={addGuessedLetter}
         />
+      </div>
+      <div style={{ fontSize: "2rem", textAlign: "center" }}>
+        {isWinner && "Winner! - Refresh To try again"}
+        {isLoser && "Nice Try! - Refresh To try again"}
       </div>
     </div>
   );
