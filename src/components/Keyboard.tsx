@@ -1,9 +1,32 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const KEYS = [
-  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-  "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-  "u", "v", "w", "x", "y", "z",
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
 ];
 
 type KeyBoardProps = {
@@ -32,19 +55,14 @@ export default function Keyboard({
   };
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(75px, 1fr))",
-        gap: ".5rem",
-      }}
-    >
+    <div className="flex max-sm:grid max-sm:grid-cols-10 items-center justify-center gap-1 text-xs">
       {KEYS.map((key) => {
         const isActive = activeLetters.includes(key);
         const isInactive = inactiveLetters.includes(key);
         const isPressed = pressedLetter === key;
 
-        let buttonClass = "w-full border-2 py-2 px-2 text-2xl uppercase font-bold cursor-pointer text-black ";
+        let buttonClass =
+          "w-full border-2 py-2 px-2 text-lg uppercase font-bold cursor-pointer text-black ";
 
         // Determine the button color based on the state
         if (isActive) {
@@ -54,7 +72,7 @@ export default function Keyboard({
         } else if (isPressed) {
           buttonClass += "bg-red-500 text-white"; // Color for pressed but incorrect letter
         } else {
-          buttonClass += "bg-green-500";
+          buttonClass += "bg-blue-500";
         }
 
         return (

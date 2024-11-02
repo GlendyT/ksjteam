@@ -16,8 +16,8 @@ export const Fishing = () => {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
   const wordToGuess = wordData.word;
-  const correctLetters = guessedLetters.filter(
-    (letter) => wordToGuess.includes(letter)
+  const correctLetters = guessedLetters.filter((letter) =>
+    wordToGuess.includes(letter)
   );
 
   const incorrectGuesses = guessedLetters.filter(
@@ -72,35 +72,29 @@ export const Fishing = () => {
   }, [guessedLetters]);
 
   return (
-    <div
-      style={{
-        maxWidth: "800px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        margin: "0 auto",
-        gap: "2rem",
-      }}
-    >
-      <HangmanDrawing 
-        numberOfGuesses={incorrectGuesses.length} // Pass incorrect guesses
-        correctGuessCount={correctLetters.length} // Pass correct letters count
+    <div className=" max-w-[1200px] max-h-24 flex flex-col items-center m-auto gap-6 relative z-10 ">
+      <div>Fishing with TEAM KIM SEOKJIN</div>
+      <HangmanDrawing
+        correctGuessCount={correctLetters.length}
+        isWinner={isWinner}
       />
       <HangmanWord
         reveal={isLoser}
         guessedLetters={guessedLetters}
         wordToGuess={wordToGuess}
       />
-      <p>Clue: {wordData.clue}</p>
+      {/* <p>Clue: {wordData.clue}</p> */}
       <div style={{ alignSelf: "stretch" }}>
         <Keyboard
           disabled={isWinner || isLoser}
           activeLetters={correctLetters}
-          inactiveLetters={guessedLetters.filter(letter => !wordToGuess.includes(letter))}
+          inactiveLetters={guessedLetters.filter(
+            (letter) => !wordToGuess.includes(letter)
+          )}
           addGuessedLetter={addGuessedLetter}
         />
       </div>
-      <div style={{ fontSize: "2rem", textAlign: "center" }}>
+      <div className="text-lg items-center ">
         {isWinner && "Winner! - Refresh To try again"}
         {isLoser && "Nice Try! - Refresh To try again"}
       </div>
