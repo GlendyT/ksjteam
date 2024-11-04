@@ -72,28 +72,28 @@ export const Fishing = () => {
   }, [guessedLetters]);
 
   return (
-    <div className=" max-w-[1200px] max-h-24 flex flex-col items-center m-auto gap-6 relative z-10 ">
+    <div className=" flex flex-col items-center m-auto gap-6 relative z-10 ">
       <div>Fishing with TEAM KIM SEOKJIN</div>
       <HangmanDrawing
         correctGuessCount={correctLetters.length}
         isWinner={isWinner}
+        isLoser={isLoser}
       />
       <HangmanWord
         reveal={isLoser}
         guessedLetters={guessedLetters}
         wordToGuess={wordToGuess}
       />
-      {/* <p>Clue: {wordData.clue}</p> */}
-      <div style={{ alignSelf: "stretch" }}>
-        <Keyboard
-          disabled={isWinner || isLoser}
-          activeLetters={correctLetters}
-          inactiveLetters={guessedLetters.filter(
-            (letter) => !wordToGuess.includes(letter)
-          )}
-          addGuessedLetter={addGuessedLetter}
-        />
-      </div>
+
+      <Keyboard
+        disabled={isWinner || isLoser}
+        activeLetters={correctLetters}
+        inactiveLetters={guessedLetters.filter(
+          (letter) => !wordToGuess.includes(letter)
+        )}
+        addGuessedLetter={addGuessedLetter}
+      />
+
       <div className="text-lg items-center ">
         {isWinner && "Winner! - Refresh To try again"}
         {isLoser && "Nice Try! - Refresh To try again"}

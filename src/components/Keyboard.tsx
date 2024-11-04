@@ -55,14 +55,14 @@ export default function Keyboard({
   };
 
   return (
-    <div className="flex max-sm:grid max-sm:grid-cols-10 items-center justify-center gap-1 text-xs">
+    <div className="flex flex-row max-sm:grid max-sm:grid-cols-10 items-center justify-center gap-1 text-xs max-sm:px-4">
       {KEYS.map((key) => {
         const isActive = activeLetters.includes(key);
         const isInactive = inactiveLetters.includes(key);
         const isPressed = pressedLetter === key;
 
         let buttonClass =
-          "w-full border-2 py-2 px-2 text-lg uppercase font-bold cursor-pointer text-black ";
+          "w-full border-2 py-1 px-2 text-lg uppercase font-bold cursor-pointer text-black ";
 
         // Determine the button color based on the state
         if (isActive) {
