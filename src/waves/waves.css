@@ -6,7 +6,7 @@
 
 .waves {
   width: 100%;
-  height: 20vh;
+  height: 50vh;
   margin-top: auto;
   min-height: 100px;
   max-height: 150px;
@@ -34,9 +34,10 @@
 
 .fish {
   position: absolute;
-  bottom: 20px; 
+  bottom: 20px;
   height: auto;
-  width: 150px;
+  width: 10vw; /* Set width based on viewport width for responsiveness */
+  max-width: 150px;
 }
 
 .fish img {
@@ -56,7 +57,6 @@
   animation-delay: 1s;
 }
 
-
 /* Waves Animation */
 .parallax > use {
   animation: move-forever 20s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
@@ -66,24 +66,24 @@
   animation-duration: 3s;
 }
 .parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
+  animation-delay: -7s;
+  animation-duration: 8s;
 }
 .parallax > use:nth-child(3) {
-  animation-delay: -5s;
-  animation-duration: 15s;
+  animation-delay: -12s;
+  animation-duration: 13s;
 }
 .parallax > use:nth-child(4) {
-  animation-delay: -7s;
+  animation-delay: -17s;
   animation-duration: 20s;
 }
 .parallax > use:nth-child(5) {
-  animation-delay: -10s;
-  animation-duration: 40s;
+  animation-delay: -23s;
+  animation-duration: 18s;
 }
 .parallax > use:nth-child(6) {
-  animation-delay: -4s;
-  animation-duration: 60s;
+  animation-delay: -1s;
+  animation-duration: 8s;
 }
 
 @keyframes move-forever {
@@ -101,11 +101,27 @@
     height: 80px;
     min-height: 40px;
   }
+  .fish {
+    width: 8vw; /* Adjust fish size on medium screens */
+  }
 }
 
 @media screen and (max-width: 768px) {
   .waves {
-    height: 40px;
+    height: 60px;
     min-height: 40px;
+  }
+  .fish {
+    width: 6vw; /* Further reduce fish size on smaller screens */
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .waves {
+    height: 90px;
+    min-height: 40px;
+  }
+  .fish {
+    width: 24vw; /* Minimum size for smallest screens */
   }
 }

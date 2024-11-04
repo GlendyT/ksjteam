@@ -46,21 +46,14 @@ const Waves = () => {
               fill="rgba(68, 226, 219, 0.3)"
             />
             <use xlinkHref="#gentle-wave" x="48" y="15" fill="#0e5c94" />
-            <use xlinkHref="#gentle-wave" x="48" y="18" fill="#012d51" />
+            <use xlinkHref="#gentle-wave" x="48" y="19" fill="#012d51" />
           </g>
         </svg>
       </>
       <div className="fish">
-        <img
-          src={fish1}
-        />
-        <img
-          src={fish2}
-        />
-        <img
-          src={fish3}
-
-        />
+        <img src={fish1} />
+        <img src={fish2} />
+        <img src={fish3} />
       </div>
     </div>
   );
