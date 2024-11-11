@@ -1,4 +1,4 @@
-import { useState } from "react";
+import useFish from "../hooks/useFishing";
 
 const KEYS = [
   "a",
@@ -29,33 +29,17 @@ const KEYS = [
   "z",
 ];
 
-type KeyBoardProps = {
-  disabled: boolean;
-  activeLetters: string[];
-  inactiveLetters: string[];
-  addGuessedLetter: (letter: string) => void;
-};
-
-export default function Keyboard({
-  activeLetters,
-  disabled = false,
-  inactiveLetters,
-  addGuessedLetter,
-}: KeyBoardProps) {
-  const [pressedLetter, setPressedLetter] = useState<string | null>(null);
-
-  const handleClick = (key: string) => {
-    setPressedLetter(key);
-    addGuessedLetter(key);
-
-    // Reset pressed letter after a short delay to visually show the effect
-    setTimeout(() => {
-      setPressedLetter(null);
-    }, 200); // Adjust the delay as needed
-  };
+export default function Keyboard() {
+  const {
+    handleClick,
+    pressedLetter,
+    activeLetters,
+    disabled,
+    inactiveLetters,
+  } = useFish();
 
   return (
-    <div className="flex flex-row max-sm:grid max-sm:grid-cols-10 items-center justify-center gap-1 text-xs max-sm:px-4">
+    <div className="flex flex-row max-sm:grid max-sm:grid-cols-10 max-lg:grid max-lg:grid-cols-12 items-center justify-center gap-1 text-xs max-sm:px-4">
       {KEYS.map((key) => {
         const isActive = activeLetters.includes(key);
         const isInactive = inactiveLetters.includes(key);
