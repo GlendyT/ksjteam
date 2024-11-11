@@ -1,14 +1,8 @@
-type HangmanWordProps = {
-  guessedLetters: string[];
-  wordToGuess: string;
-  reveal?: boolean;
-};
+import useFish from "../hooks/useFishing";
 
-export default function HangmanWord({
-  guessedLetters,
-  wordToGuess,
-  reveal = false,
-}: HangmanWordProps) {
+
+export default function HangmanWord() {
+  const { wordToGuess, guessedLetters, reveal } = useFish();
   return (
     <div className="flex gap-1 text-4xl font-extrabold uppercase font-mono">
       {wordToGuess.split("").map((letter, index) => (
