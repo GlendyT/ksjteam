@@ -8,32 +8,38 @@ import jin6 from "../assets/fish1.webp";
 export const weekdays = [
   {
     id: 1,
-    day: "Monday",
-    image: jin,
+    day: "Sunday",
+    image: jin6,
   },
   {
     id: 2,
     day: "Monday",
-    image: jin2,
+    image: jin,
   },
   {
     id: 3,
-    day: "Monday",
-    image: jin3,
+    day: "Tuesday",
+    image: jin2,
   },
   {
     id: 4,
-    day: "Monday",
-    image: jin4,
+    day: "Wednesday",
+    image: jin3,
   },
   {
     id: 5,
-    day: "Monday",
-    image: jin5,
+    day: "Thursday",
+    image: jin4,
   },
   {
     id: 6,
-    day: "Monday",
+    day: "Friday",
+    image: jin5,
+  },
+  {
+    id: 7,
+    day: "Saturday",
     image: jin6,
   },
+
 ];
