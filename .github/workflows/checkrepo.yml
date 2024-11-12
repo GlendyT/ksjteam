@@ -1,4 +1,4 @@
-name: Checkthe repo
+name: Check for 11nov Branches
 
 on:
   push:
@@ -9,25 +9,36 @@ on:
       - main
 
 jobs:
-  build:
+  check_branches:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Node.js environment with npm
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18" # Specify Node.js version
-          cache: "npm"
+      - name: Configure Git
+        run: |
+          git config --global user.name "GlendyT"
+          git config --global user.email "glendytuyuc@gmail.com"
 
-      # Install dependencies using npm with environment variables
-      - name: Install dependencies
-        run: npm install --frozen-lockfile
+      - name: Check for 11nov branches
+        id: check_branches
+        run: |
+          # Busca ramas remotas que sigan el patrón '11nov[0-9]' y las guarda en una variable
+          BRANCHES=$(git branch -r | grep -E 'origin/11nov[0-9]+')
+          if [ -z "$BRANCHES" ]; then
+            echo "No se encontraron ramas con el patrón '11nov[0-9]'."
+            echo "branches_found=false" >> $GITHUB_ENV
+          else
+            echo "Se encontraron las siguientes ramas:"
+            echo "$BRANCHES"
+            echo "branches_found=true" >> $GITHUB_ENV
+          fi
 
-      # Build the Next.js application with environment variables
-      - name: Build React Vite.js app
-        run: npm run build
+      - name: Report branch check result
+        run: |
+          if [ "${{ env.branches_found }}" = "true" ]; then
+            echo "Existen ramas con el patrón '11nov[0-9]'."
+          else
+            echo "No se encontraron ramas con el patrón '11nov[0-9]'."
+          fi
