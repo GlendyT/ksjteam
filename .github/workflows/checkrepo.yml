@@ -25,7 +25,7 @@ jobs:
         id: check_branches
         run: |
           if [ -z "$BRANCHES" ]; then
-            echo "No se encontraron ramas con el patrón '11nov[0-9]'."
+            echo "No se encontraron ramas con el patrón '11nov1'."
             echo "branches_found=false" >> $GITHUB_ENV
           else
             echo "Se encontraron las siguientes ramas:"
@@ -36,7 +36,7 @@ jobs:
       - name: Report branch check result
         run: |
           if [ "${{ env.branches_found }}" = "true" ]; then
-            echo "Existen ramas con el patrón '11nov[0-9]'."
+            echo "Existen ramas con el patrón '11nov1'."
           else
-            echo "No se encontraron ramas con el patrón '11nov[0-9]'."
+            echo "No se encontraron ramas con el patrón '11nov1'."
           fi
