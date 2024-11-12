@@ -1,4 +1,4 @@
-name: Scheduled Merge
+name: scheduled-merge
 
 on:
   schedule:
