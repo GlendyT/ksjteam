@@ -24,8 +24,6 @@ jobs:
       - name: Check for 11nov branches
         id: check_branches
         run: |
-          # Busca ramas remotas que sigan el patrón '11nov[0-9]' y las guarda en una variable
-          BRANCHES=$(git branch -r | grep -E 'origin/11nov[0-9]+')
           if [ -z "$BRANCHES" ]; then
             echo "No se encontraron ramas con el patrón '11nov[0-9]'."
             echo "branches_found=false" >> $GITHUB_ENV
