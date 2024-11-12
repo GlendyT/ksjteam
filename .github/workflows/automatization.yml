@@ -2,7 +2,7 @@ name: Scheduled Merge
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Ejecutar cada 10 minutos
+    - cron: "*/5 * * * *" 
 
 jobs:
   merge_branch:
@@ -20,15 +20,14 @@ jobs:
       - name: Find Branches to Merge
         id: find_branches
         run: |
-          # Lista las ramas que siguen el patrón '11nov' y selecciona la rama correspondiente
           BRANCHES=$(git branch -r | grep -E 'origin/11nov[0-9]+' | sed 's/origin\///')
           BRANCH_ARRAY=($BRANCHES)
-          BRANCH_TO_MERGE=${BRANCH_ARRAY[0]} # Selecciona la primera rama
-          echo "branch_to_merge=$BRANCH_TO_MERGE" >> $GITHUB_ENV  # Exporta la variable a los pasos siguientes
+          BRANCH_TO_MERGE=${BRANCH_ARRAY[0]} 
+          echo "branch_to_merge=$BRANCH_TO_MERGE" >> $GITHUB_ENV
 
       - name: Merge branch
         env:
-          TARGET_BRANCH: 'main'  # Rama destino
+          TARGET_BRANCH: "main" 
         run: |
           git checkout ${{ env.TARGET_BRANCH }}
           git pull origin ${{ env.TARGET_BRANCH }}
