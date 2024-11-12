@@ -1,36 +1,13 @@
-name: Scheduled Merge
+name: scheduled-merge
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Ejecutar cada 10 minutos
+    - cron: "1 * * * *"
+  workflow_dispatch:
 
 jobs:
-  merge_branch:
+  my-job:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "GlendyT"
-          git config --global user.email "glendytuyuc@gmail.com"
-
-      - name: Find Branches to Merge
-        id: find_branches
-        run: |
-          # Lista las ramas que siguen el patrón '11nov' y selecciona la rama correspondiente
-          BRANCHES=$(git branch -r | grep -E 'origin/11nov[0-9]+' | sed 's/origin\///')
-          BRANCH_ARRAY=($BRANCHES)
-          BRANCH_TO_MERGE=${BRANCH_ARRAY[0]} # Selecciona la primera rama
-          echo "branch_to_merge=$BRANCH_TO_MERGE" >> $GITHUB_ENV  # Exporta la variable a los pasos siguientes
-
-      - name: Merge branch
-        env:
-          TARGET_BRANCH: 'main'  # Rama destino
-        run: |
-          git checkout ${{ env.TARGET_BRANCH }}
-          git pull origin ${{ env.TARGET_BRANCH }}
-          git merge origin/${{ env.branch_to_merge }}
-          git push origin ${{ env.TARGET_BRANCH }}
+      - name: first-step
+        run: echo "hello world"
