@@ -7,15 +7,25 @@ on:
 jobs:
   auto_merge:
     runs-on: ubuntu-latest
+
     steps:
+      # Configurar Node.js 16
+      - name: Set up Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Configurar Git
       - name: Configure Git
         run: |
           git config --global user.name "GlendyT"
           git config --global user.email "glendytuyuc@gmail.com"
 
+      # Verificar si la rama existe
       - name: Check if branch exists
         id: check_branch
         run: |
@@ -26,6 +36,7 @@ jobs:
             echo "branch_exists=false" >> $GITHUB_ENV
           fi
 
+      # Crear Pull Request
       - name: Create Pull Request
         if: env.branch_exists == 'true'
         uses: peter-evans/create-pull-request@v5
@@ -36,6 +47,7 @@ jobs:
           title: "Auto-merge 11novtest into main"
           body: "This pull request was created automatically by GitHub Actions."
 
+      # Hacer Auto-Merge del Pull Request
       - name: Auto-Merge Pull Request
         if: env.branch_exists == 'true'
         uses: actions/github-script@v6
