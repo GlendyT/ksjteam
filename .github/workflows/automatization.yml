@@ -1,74 +1,33 @@
-name: Scheduled Merge
+name: GithubActions
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"  # Ejecutar cada 5 minutos
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  auto_merge:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Configurar Node.js 16
-      - name: Set up Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      # Checkout code
+      # Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Configurar Git
-      - name: Configure Git
-        run: |
-          git config --global user.name "GlendyT"
-          git config --global user.email "glendytuyuc@gmail.com"
-
-      # Verificar si la rama existe
-      - name: Check if branch exists
-        id: check_branch
-        run: |
-          BRANCH_NAME="11novtest"
-          if git ls-remote --heads origin "$BRANCH_NAME" | grep "$BRANCH_NAME"; then
-            echo "branch_exists=true" >> $GITHUB_ENV
-          else
-            echo "branch_exists=false" >> $GITHUB_ENV
-          fi
-
-      # Crear Pull Request
-      - name: Create Pull Request
-        if: env.branch_exists == 'true'
-        uses: peter-evans/create-pull-request@v5
+      # Set up Node.js environment with npm
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.AUTO_TOKEN }}
-          base: main  # Rama base donde quieres hacer el merge
-          branch: 11novtest  # La rama que quieres fusionar
-          title: "Auto-merge 11novtest into main"
-          body: "This pull request was created automatically by GitHub Actions."
+          node-version: "18" # Specify Node.js version
+          cache: "npm"
 
-      # Hacer Auto-Merge del Pull Request
-      - name: Auto-Merge Pull Request
-        if: env.branch_exists == 'true'
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.AUTO_TOKEN }}
-          script: |
-            const pr = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              head: "11novtest",
-              base: "main",
-              state: "open"
-            });
-            if (pr.data.length > 0) {
-              await github.rest.pulls.merge({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pr.data[0].number,
-                merge_method: "merge"
-              });
-              console.log("Pull request merged successfully.");
-            } else {
-              console.log("No open pull request found to merge.");
-            }
+      # Install dependencies using npm with environment variables
+      - name: Install dependencies
+        run: npm install --frozen-lockfile
+
+      # Build the Next.js application with environment variables
+      - name: Build React Vite.js app
+        run: npm run build
