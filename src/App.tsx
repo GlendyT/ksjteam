@@ -1,7 +1,5 @@
 //import { Fishing } from "./components/Fishing";
-//import ScheduledImage from "./components/ScheduledImage";
-
-import Imagenes from "./components/Imagenes";
+import ScheduledImage from "./components/ScheduledImage";
 
 //import Waves from "./waves/Waves";
 
@@ -12,8 +10,7 @@ function App() {
         <Fishing />
       </div>
       <Waves /> */}
-      {/* <ScheduledImage/> */}
-      <Imagenes/>
+      <ScheduledImage />
     </div>
   );
 }
