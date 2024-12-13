@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const plugin = require("tailwindcss/plugin");
+import plugin from "tailwindcss/plugin";
 
 const Myclass = plugin(function ({ addUtilities }) {
   addUtilities({
@@ -36,9 +36,9 @@ export default {
         slide: " slide 25s linear infinite",
         "blur-text-0": "blur-text 1.5s 0s infinite linear alternate",
       },
-      backgroundImage:{
-        v: "url('https://ibighit.com/bts/images/bts/discography/v/layover/discography-cover.png')"
-      }
+      backgroundImage: {
+        v: "url('https://ibighit.com/bts/images/bts/discography/v/layover/discography-cover.png')",
+      },
     },
   },
   plugins: [Myclass],
