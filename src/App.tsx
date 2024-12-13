@@ -1,16 +1,12 @@
-import { Fishing } from "./components/Fishing";
-import Waves from "./waves/Waves";
-
-
 //import Waves from "./waves/Waves";
+
+import Cards from "./components/Cards";
 
 function App() {
   return (
-    <div className="bg-[#2b74ce] flex flex-col min-h-screen ">
-      <div className="flex-1 max-sm:flex">
-        <Fishing />
-      </div>
-      <Waves />
+    <div className="flex flex-col gap-4 justify-center items-center min-h-screen bg-v bg-center bg-cover bg-no-repeat  max-sm:px-2">
+
+      <Cards />
 
     </div>
   );

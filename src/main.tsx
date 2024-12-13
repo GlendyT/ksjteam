@@ -4,13 +4,15 @@ import "./index.css";
 import App from "./App";
 import { FishProvider } from "./context/FishProvider";
 import { RevealProvider } from "./context/RevealProvider";
+import { FlipProvider } from "./context/FlipProvider";
 
 createRoot(document.getElementById("root")!).render(
-  
-    <FishProvider>
-      <RevealProvider>
-        <App />
-      </RevealProvider>
-    </FishProvider>
-  
+
+  <FishProvider>
+    <RevealProvider>
+      <FlipProvider>
+        <App /></FlipProvider>
+    </RevealProvider>
+  </FishProvider>
+
 );
